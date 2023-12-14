@@ -1,0 +1,47 @@
+        body {
+             background-image: url("../img/backGame.jpg");
+             background-size: cover;
+             background-repeat: no-repeat;
+             background-position:center;
+             
+        }
+        .container {
+            max-width: 800px;
+            margin: 100px auto;
+            text-align: center; /* Centra el contenido */
+        }
+        .card {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .btn-answer {
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .form-check {
+            margin-bottom: 10px;
+        }
+        h1 {
+            text-shadow: 1px 1px 1px #000;
+        }
+
+        .form-check-input[type="radio"] {
+            display: none;
+        }
+        .form-check-label {
+            display: block;
+            position: relative;
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .form-check-label:hover {
+            background-color: #f0f0f0;
+        }
+        .form-check-input[type="radio"]:checked + .form-check-label {
+            background-color: #e9ecef;
+        }
