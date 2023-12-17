@@ -25,9 +25,6 @@
   <div class="container position-sticky z-index-sticky top-0">
     <div class="row">
       <div class="col-12">
-        <!-- Navbar -->
-
-        <!-- End Navbar -->
       </div>
     </div>
   </div>
@@ -43,26 +40,41 @@
                   <p class="mb-0">Enter your user and password to sign in</p>
                 </div>
                 <div class="card-body">
-                  <form role="form">
+                <form action="{{ url('user/processLogin') }}" method="POST">
+                  @csrf
+                  @if(session('success'))
+                      <div class="alert alert-success">
+                          {{ session('success') }}
+                      </div>
+                  @endif
+                  @if ($errors->any())
+                  <div class="alert alert-danger">
+                      <ul>
+                          @foreach ($errors->all() as $error)
+                              <li>{{ $error }}</li>
+                          @endforeach
+                      </ul>
+                  </div>
+                  @endif
                     <div class="mb-3">
-                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email">
+                        <input type="text" class="form-control form-control-lg" placeholder="Name" aria-label="Email" name="name">
                     </div>
                     <div class="mb-3">
-                      <input type="email" class="form-control form-control-lg" placeholder="Password" aria-label="Password">
+                        <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" name="password">
                     </div>
                     <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="rememberMe">
-                      <label class="form-check-label" for="rememberMe">Remember me</label>
+                        <input class="form-check-input" type="checkbox" id="rememberMe" name="rememberMe">
+                        <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>
                     <div class="text-center">
-                      <button type="button" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
+                        <button type="submit" class="btn btn-lg btn-primary btn-lg w-100 mt-4 mb-0">Sign in</button>
                     </div>
-                  </form>
+                </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
-                    <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                    <a href="{{url('user/create')}}" class="text-primary text-gradient font-weight-bold">Sign up</a>
                   </p>
                 </div>
               </div>
@@ -84,31 +96,36 @@
   <script src="../assets/js/core/bootstrap.min.js"></script>
   <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
   <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
-  <script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
+  // <script>
+  
+
+
+
+
+  //   var win = navigator.platform.indexOf('Win') > -1;
+  //   if (win && document.querySelector('#sidenav-scrollbar')) {
+  //     var options = {
+  //       damping: '0.5'
+  //     }
+  //     Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+  //   }
     
-     document.querySelector('.btn-primary').addEventListener('click', function(event) {
-      event.preventDefault(); // Evitar que el formulario se envíe por defecto
+  //   document.querySelector('.btn-primary').addEventListener('click', function(event) {
+  //     event.preventDefault(); // Evitar que el formulario se envíe por defecto
 
-      // Obtener valores de entrada
-      const email = document.querySelector('input[aria-label="Email"]').value;
-      const password = document.querySelector('input[aria-label="Password"]').value;
+  //     // Obtener valores de entrada
+  //     const email = document.querySelector('input[aria-label="Email"]').value;
+  //     const password = document.querySelector('input[aria-label="Password"]').value;
 
-      // Verificar las credenciales (simulando inicio de sesión)
-      if (email === 'root' && password === 'root') {
-        // Credenciales válidas, redireccionar a otra página
-        window.location.href = 'https://tu-otra-pagina.com';
-      } else {
-        // Mostrar mensaje de error (aquí podrías usar una alerta o un elemento HTML)
-        console.error('Credenciales incorrectas');
-      }
-    });
+  //     // Verificar las credenciales (simulando inicio de sesión)
+  //     if (email === 'root' && password === 'root') {
+  //       // Credenciales válidas, redireccionar a otra página
+  //       window.location.href = 'https://tu-otra-pagina.com';
+  //     } else {
+  //       // Mostrar mensaje de error (aquí podrías usar una alerta o un elemento HTML)
+  //       console.error('Credenciales incorrectas');
+  //     }
+  //   });
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

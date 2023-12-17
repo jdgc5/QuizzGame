@@ -6,9 +6,24 @@
              
         }
         .container {
-            max-width: 800px;
-            margin: 100px auto;
+            max-width: 1000px;
+            margin: 225px auto;
             text-align: center; /* Centra el contenido */
+        }
+        .subText {
+            font-size: 1.5rem;
+        }
+        #answer:hover,
+        #answer:active{
+            background-color:beige;
+        }
+        
+        .selected{
+            background-color:beige;
+        }
+        
+        #question {
+            margin-bottom: 2rem;
         }
         .card {
             border-radius: 15px;

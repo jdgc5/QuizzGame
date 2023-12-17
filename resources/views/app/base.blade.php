@@ -41,7 +41,11 @@
           </a>
         </li>
         <li class="nav-item">
+          @if(session()->has('user'))
           <a class="nav-link " href="{{ route ('quizz.create')}}">
+            @else
+             <a class="nav-link" href="#">
+            @endif
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
             </div>
@@ -49,7 +53,11 @@
           </a>
         </li>
         <li class="nav-item">
+          @if(session()->has('user'))
           <a class="nav-link" href="{{ url ('quizz/history')}}" >
+            @else
+            <a class="nav-link" href="#">
+              @endif
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-app text-info text-sm opacity-10"></i>
             </div>
@@ -60,7 +68,11 @@
           <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
         </li>
         <li class="nav-item">
+          @if(session()->has('user'))
           <a class="nav-link">
+            @else
+          <a class="nav-link">            
+            @endif
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
             </div>
@@ -68,19 +80,27 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="{{url ('quizz/sign-in')}}">
+          <a class="nav-link " href="{{url ('user/index')}}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Sign In</span>
+            @if(session()->has('user'))
+                <span class="nav-link-text ms-1">Log Out</span>
+            @else
+                <span class="nav-link-text ms-1">Sign In</span>
+            @endif
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="{{url ('quizz/sign-up')}}">
+          <a class="nav-link " href="{{url ('user/create')}}">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-collection text-info text-sm opacity-10"></i>
             </div>
+            @if(session()->has('user'))
+            <span class="nav-link-text ms-1">Sign Up New Account</span>
+            @else
             <span class="nav-link-text ms-1">Sign Up</span>
+            @endif
           </a>
         </li>
       </ul>
@@ -97,10 +117,17 @@
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
-              <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+              @if(session()->has('user'))
+              <a href="{{url('user/profile')}}" class="nav-link text-white font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">profile</span>
+              </a>
+              @else
+               <a href="{{url('user/index')}}" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
                 <span class="d-sm-inline d-none">Sign In</span>
               </a>
+              @endif
             </li>
             <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
               <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
@@ -359,7 +386,7 @@
           </div>
         </div>
         @endsection
-      <footer class="footer fixed-bottom pt-3  ">
+      <footer class="footer fixed-bottom pt-3">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">

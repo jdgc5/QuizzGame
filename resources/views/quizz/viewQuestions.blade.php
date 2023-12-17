@@ -7,7 +7,7 @@
 @include('modal.deleteQuizz')
 
 @foreach($quizzs as $quizz)
-<div class="col-lg-12 mb-4">
+<div class="col-lg-10 mb-4 mx-auto">
     <div class="card">
         <div class="card-body">
             <h5 class="card-title">{{ $quizz->question }}</h5>

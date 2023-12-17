@@ -8,16 +8,18 @@ use Illuminate\Database\Eloquent\Model;
 class History extends Model
 {
     use HasFactory;
-
-    protected $table = 'history';
-
+    
+    protected $table = 'game_history';
+    
     protected $fillable = [
-        'question_id',
-        'answered_correctly',
+        'user_name', 
+        'score',
+        'played_at', 
+        
     ];
 
-    public function question()
+    public function user()
     {
-        return $this->belongsTo(Quizz::class, 'question_id');
+        return $this->belongsTo(User::class);
     }
 }

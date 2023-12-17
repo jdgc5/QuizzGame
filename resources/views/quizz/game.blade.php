@@ -9,18 +9,29 @@
 </head>
 <body>
     
-    <div class="container">
-        <h1 class="mb-4">Welcome to the Game!</h1>
+    <div class="container mb-5">
         <div class="card">
-            <div class="card-body">
-                <h3 class="card-title text-center" id="question">Question goes here</h3>
-                <div class="form-group text-center" id="answers">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title text-center" id="question">Question here</h3>
+                    <div class="form-group text-center" id="answers">
+                    </div>
                 </div>
+            </div>
                 <button class="btn btn-primary btn-answer" onclick="checkAnswer()">Submit Answer</button>
-                <p class="mt-3 text-center">Questions answered correctly: <span id="correctCount">0</span></p>
+            <div class="exit d-inline-block w-100 p-3">
+                <div class="row align-items-center justify-content-center">
+                    <div class="col-6 text-center">
+                        <button class="btn btn-danger p-1 px-4 " onclick="exitGame()">Exit</button>
+                    </div>
+                    <div class="col-6 text-center">
+                        <p class="mt-3 text-center subText">Questions answered correctly: <span id="correctCount">0</span>/<span id="totalQuestions">0</span></p>
+                    </div>
+                </div>
+            </div>
                 <div id="endGameButtons" style="display: none;" class="text-center">
                     <button class="btn btn-success mr-2" onclick="restartGame()">Try Again</button>
-                    <button class="btn btn-danger" onclick="exitGame()">Exit</button>
+                    
                 </div>
             </div>
         </div>
@@ -31,12 +42,13 @@
         
 let currentQuestionIndex = 0;
 let correctCount = 0;
+let totalQuestions = 5;
 const questions = @json($questions);
 
 function displayQuestion() {
     if (currentQuestionIndex < questions.length) {
         const question = questions[currentQuestionIndex];
-
+        $('#totalQuestions').text(totalQuestions);
         $('#question').text(question.question);
         $('#answers').empty();
 
@@ -45,7 +57,7 @@ function displayQuestion() {
             $('#answers').append(`
                 <div class="form-check">
                     <input class="form-check-input" type="radio" name="answer" id="${answerId}" value="${index}">
-                    <label class="form-check-label" for="${answerId}">${answer.answer_text}</label>
+                    <label id="answer" class="form-check-label" for="${answerId}">${answer.answer_text}</label>
                 </div>
             `);
         });
@@ -61,12 +73,13 @@ function checkAnswer() {
     const correctAnswerIndex = questions[currentQuestionIndex].answers.findIndex(answer => answer.is_correct);
 
         if (selectedAnswerIndex === correctAnswerIndex) {
-            $(`#answer${selectedAnswerIndex}`).parent().css('color', 'green');
+            $(`#answer${selectedAnswerIndex}`).siblings('label').addClass('bg-success');
             correctCount++;
             $('#correctCount').text(correctCount);
         } else {
-            $(`#answer${selectedAnswerIndex}`).parent().css('color', 'red');
+            $(`#answer${selectedAnswerIndex}`).siblings('label').addClass('bg-danger'); 
         }
+
         currentQuestionIndex++;
         if (currentQuestionIndex < questions.length) {
             setTimeout(() => {
@@ -99,48 +112,10 @@ function checkAnswer() {
             window.location.href = '../quizz';
         }
         
-        function finishGame() {
-            const currentDate = new Date().toISOString(); // Obtener la fecha y hora actual
-        
-            const answeredQuestions = questions.slice(0, currentQuestionIndex).map((question, index) => {
-                const selectedAnswerIndex = parseInt($(`input[name="answer"]:checked`, `#answers${index}`).val());
-                const correctAnswerIndex = question.answers.findIndex(answer => answer.is_correct);
-        
-                return {
-                    question: question.question,
-                    selectedAnswer: question.answers[selectedAnswerIndex].answer_text,
-                    correctAnswer: question.answers[correctAnswerIndex].answer_text,
-                    isCorrect: selectedAnswerIndex === correctAnswerIndex
-                };
-            });
-        
-            // Objeto con la información a enviar al backend
-            const dataToSend = {
-                user_id: 1, // ID del usuario actual (debe ajustarse según tu lógica)
-                date: currentDate, // Fecha y hora de la partida
-                correct_answers: correctCount, // Número de respuestas correctas
-                total_questions: questions.length, // Total de preguntas jugadas
-                answered_questions: answeredQuestions // Preguntas y respuestas contestadas
-            };
-        
-            
-            $.ajax({
-                url: 'quizz/save-game', // Ruta correspondiente al backend para guardar la partida
-                method: 'POST',
-                data: dataToSend,
-                success: function(response) {
-                    window.location.href = '/history'; // Redirige al historial de partidas
-                },
-                error: function(error) {
-                    console.error(error);
-                    // Manejar el error si ocurre
-                }
-            });
-        }
-
+        $('#answer').click(function() {
+        $(this).toggleClass('selected');
+});
 
         
     </script>
-    
-
 </html>

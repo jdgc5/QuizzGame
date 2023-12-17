@@ -6,24 +6,26 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public function up(): void
-    {
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up() {
         Schema::create('game_history', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('quizz_id');
-            $table->unsignedBigInteger('selected_answer_id');
-            $table->boolean('answered_correctly');
+            $table->foreignId('user_id')->constrained(); 
+            $table->string('user_name'); 
+            $table->integer('score'); 
+            $table->dateTime('played_at'); 
+            
             $table->timestamps();
-        
-            $table->foreign('quizz_id')->references('id')->on('quizz')->onDelete('cascade');
-            $table->foreign('selected_answer_id')->references('id')->on('answer')->onDelete('cascade');
         });
-
-
     }
 
-    public function down(): void
+
+    public function down()
     {
-        Schema::dropIfExists('history');
+        Schema::dropIfExists('game_history');
     }
 };
