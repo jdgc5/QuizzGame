@@ -84,8 +84,8 @@
                             @endif
                         </p>
                         <a href="{{ route('quizz.show', $question->id) }}" class="btn btn-primary">View Question</a>
-                                    <button data-url="{{ url('quizz/' . $question->id) }}" href="{{route('quizz.create')}}" data-title="{{ $question->title }}" type="button" class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#deleteQuizzModal">
-                <i class="fas fa-trash-alt"></i> Eliminar
+                                    <button data-url="{{ url('quizz/' . $question->id) }}" href="{{url('quizz/create')}}" data-title="{{ $question->title }}" type="button" class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#deleteQuizzModal">
+                <i class="fas fa-trash-alt"></i> Delete
             </button>
                     </div>
                 </div>

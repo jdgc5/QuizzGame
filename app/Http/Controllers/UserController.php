@@ -77,8 +77,17 @@ class UserController extends Controller
 
             return redirect()->back()->withInput()->withErrors(['message' => 'User/Password Incorrect']);
         } catch (\Exception $e) {
-            return redirect()->back()->withInput()->withErrors(['message' => 'Error al iniciar sesión: ' . $e->getMessage()]);
+            return redirect()->back()->withInput()->withErrors(['message' => 'Error logging in: ' . $e->getMessage()]);
         }
+    }
+    
+        public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('quizz.index'); 
     }
 
 }

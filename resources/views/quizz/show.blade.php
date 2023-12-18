@@ -27,10 +27,10 @@
     </div>
     <div class="row mt-4">
         <div class="col-md-12 d-flex justify-content-center">
-            <a href="{{ url('./quizz/viewQuestions') }}" class="btn btn-primary">Volver</a>
-            <button data-url="{{ url('quizz/' . $quizz->id) }}" data-title="{{ $quizz->title }}" type="button" class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#deleteQuizzModal">
-                <i class="fas fa-trash-alt"></i> Eliminar
-            </button>
+            <a href="{{ url()->previous() }}" class="btn btn-primary">Back</a>
+            <!--<button data-url="{{ url('quizz/' . $quizz->id) }}" data-title="{{ $quizz->title }}" type="button" class="btn btn-danger mx-3" data-bs-toggle="modal" data-bs-target="#deleteQuizzModal">-->
+            <!--    <i class="fas fa-trash-alt"></i> Delete-->
+            <!--</button>-->
         </div>
     </div>
 </div>

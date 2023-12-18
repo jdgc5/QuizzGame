@@ -52,7 +52,7 @@
                             @endforeach
                         </div>
                         <div class="d-flex justify-content-center mt-4">
-                            <a href="{{ url('./quizz/viewQuestions') }}" class="btn btn-danger mx-3">Cancel</a>
+                            <a href="{{ url('/viewQuestions') }}" class="btn btn-danger mx-3">Cancel</a>
                             <button class="btn btn-primary mx-3" type="submit">Update</button>
                         </div>
                     </form>

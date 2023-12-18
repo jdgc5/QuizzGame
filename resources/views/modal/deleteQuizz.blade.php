@@ -8,7 +8,7 @@
       <div class="modal-body">
         <p>Are you sure you want to delete this question <span id="quizzTitle"></span>?</p>
       </div>
-    <form id="formDeleteV3" action="{{url('/')}}" method="post" style="display: inline-block">
+    <form id="formDeleteV3" action="{{('/')}}" method="post" style="display: inline-block">
       @csrf
       @method('delete')
     </form>

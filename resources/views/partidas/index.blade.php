@@ -3,40 +3,44 @@
 @section('title', 'Historial de Partidas')
 
 @section('content')
+
+@include('modal.deleteQuizz')
     <div class="container mt-4">
         <div class="row">
+            @foreach($partidas as $partida)
             <div class="col-lg-10 mb-4 mx-auto">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th>ID Partida Jugada</th>
-                            <th>Número Aciertos</th>
-                            <th>Usuario de la Partida</th>
-                            <th>Fecha y Hora</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Aquí iterarás sobre las partidas jugadas -->
-                        @foreach($partidas as $partida)
-                            <tr>
-                                <td>{{ $partida->id }}</td>
-                                <td>{{ $partida->aciertos }}</td>
-                                <td>{{ $partida->usuario }}</td>
-                                <td>{{ $partida->fecha }}</td>
-                                <td>
-                                    <form action="{{ route('partidas.destroy', $partida->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Borrar</button>
-                                    </form>
-                                    <a href="{{ route('partidas.show', $partida->id) }}" class="btn btn-primary">Ver Detalles</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                <div class="card">
+                    <div class="card-body d-flex justify-content-between align-items-center">
+                        <h5 class="card-title">User: {{ $partida->user_name }}</h5>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="fw-bold">Score:</h5>
+                            <span class="badge ms-2 bg-primary">{{ $partida->score }}/5</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h5 class="fw-bold">Date:</h5>
+                            <span class="ms-2">{{ $partida->played_at }}</span>
+                        </div>
+                    </div>
+                        <button data-url="{{ url('partidas/' . $partida->id) }}" data-title="{{ $partida->id }}" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteQuizzModal">
+                            <i class="fas fa-trash-alt"></i> Delete
+                        </button>
+                        </div>
+                    </div>
+                </div>
             </div>
+            @endforeach
         </div>
     </div>
+
+
+<script>
+  const deleteQuizzModal = document.getElementById('deleteQuizzModal');
+  const quizzTitle = document.getElementById('quizzTitle');
+  const formDeleteV3 = document.getElementById('formDeleteV3');
+  deleteQuizzModal.addEventListener('show.bs.modal', event => {
+  quizzTitle.innerHTML = event.relatedTarget.dataset.title;
+  formDeleteV3.action = event.relatedTarget.dataset.url;
+  });
+</script>
+
 @endsection

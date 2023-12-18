@@ -6,7 +6,20 @@
 
 @include('modal.deleteQuizz')
 
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
+
 @foreach($quizzs as $quizz)
+
+
 <div class="col-lg-10 mb-4 mx-auto">
     <div class="card">
         <div class="card-body">
@@ -22,7 +35,6 @@
                 </li>
                 @endforeach
             </ul>
-            <!-- Botones de acción -->
             <div class="text-center mt-3">
                 <a class="btn btn-primary me-2" href="{{ url('quizz/' . $quizz->id) }}"><i class="fa-regular fa-eye"></i> Ver</a>
                 <a class="btn btn-warning me-2" href="{{ url('quizz/' . $quizz->id . '/edit') }}"><i class="fa-solid fa-pen"></i> Editar</a>
